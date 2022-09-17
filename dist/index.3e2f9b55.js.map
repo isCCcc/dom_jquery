@@ -1,0 +1,1 @@
+{"mappings":"AAAA,MAAM,CAAC,MAAM,GAAG,WAAY;IACxB,OAAO,CAAC,GAAG,CAAC,WAAW,CAAC;CAC3B","sources":["src/jquery.js"],"sourcesContent":["window.jquery = function () {\r\n    console.log('hi,jquery')\r\n}"],"names":[],"version":3,"file":"index.3e2f9b55.js.map","sourceRoot":"/__parcel_source_root/"}
