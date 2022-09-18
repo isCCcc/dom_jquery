@@ -4,13 +4,13 @@
 const test = $('#test').addClass('red').addClass('yellow')
 
 // 2.查找 #test2 里的 #child 元素,并为其添加类名作为区分
-const test2 = $('#test2').find('#child').addClass('black')
+const test2 = $('#test2').find('.child').addClass('black')
 
 // 3.返回到 #test2,并为其添加类名作为区分
 const end = test2.end().addClass('pink')
 
 // 4.遍历元素，并执行fn函数
-// test.each(($div) => { console.log($div) })
+test.each(($div) => { console.log($div) })
 
 // 5.查找父节点
 const parent = $('#test3').parent().addClass('parent')
