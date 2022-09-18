@@ -45,7 +45,7 @@ jQuery.fn = jQuery.prototype = {
         // 链式操作，返回对象本身
         return this
     },
-    // 2.查找 #xxx 里的 #yyy 元素
+    // 查找 #xxx 里的 #yyy 元素
     find(selector) {
         let array = []
         for (let i = 0; i < this.elements.length; i++) {
@@ -55,18 +55,18 @@ jQuery.fn = jQuery.prototype = {
         array.oldApi = this   // 将现阶段的 this 存储下来(旧api)
         return jQuery(array)  // 返回新的 api
     },
-    // 3.回退到上一个操作的 api
+    // 回退到上一个操作的 api
     end() {
         return this.oldApi
     },
-    // 4.遍历元素
+    // 遍历元素
     each(fn) {
         for (let i = 0; i < this.elements.length; i++) {
             fn.call(null, this.elements[i], i)
         }
         return this
     },
-    // 5.获取父节点
+    // 获取父节点
     parent() {
         const array = []
         this.each((node) => {
@@ -76,7 +76,7 @@ jQuery.fn = jQuery.prototype = {
         })
         return jQuery(array);
     },
-    // 6.获取子节点
+    // 获取子节点
     children() {
         const array = []
         this.each((node) => {
@@ -84,7 +84,7 @@ jQuery.fn = jQuery.prototype = {
         })
         return jQuery(array);
     },
-    // 7.获取兄弟节点
+    // 获取兄弟节点
     siblings() {
         const array = []
         this.each((node) => {
@@ -92,7 +92,7 @@ jQuery.fn = jQuery.prototype = {
         })
         return jQuery(array);
     },
-    // 8.获取上一个节点
+    // 获取上一个节点
     prev() {
         const array = []
         this.each((node) => {
@@ -104,7 +104,7 @@ jQuery.fn = jQuery.prototype = {
         })
         return jQuery(array)
     },
-    // 9.获取下一个节点
+    // 获取下一个节点
     next() {
         const array = []
         this.each((node) => {
@@ -116,11 +116,11 @@ jQuery.fn = jQuery.prototype = {
         })
         return jQuery(array)
     },
-    // 10.获取指定下标节点数组
+    // 获取指定下标节点数组
     get(index) {
         return this.elements[index];
     },
-    // 11.打印节点
+    // 打印节点
     print() {
         console.log(this.elements)
     },
