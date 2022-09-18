@@ -1,18 +1,34 @@
 window.$ = window.jQuery = function(selector) {
     let elements;
-    if (typeof selector === "string") elements = document.querySelectorAll(selector);
-    else if (selector instanceof Array) elements = selector;
+    if (typeof selector === "string") {
+        if (selector[0] === "<") // 创建div
+        elements = [
+            createElement(selector)
+        ];
+        else // 查询div
+        elements = document.querySelectorAll(selector);
+    } else if (selector instanceof Array) elements = selector;
+    // 创建节点
+    function createElement(string) {
+        const container = document.createElement("template");
+        container.innerHTML = string.trim();
+        return container.content.firstChild;
+    }
     // 指定jQuery的prototype
     const api = Object.create(jQuery.prototype);
+    // const api = {__proto__: jQuery.prototype}
     Object.assign(api, {
         elements: elements,
         oldApi: selector.oldApi
     });
+    // api.elements = elements
+    // api.oldApi = selectorOrArrayOrTemplate.oldApi
     // 返回一个可以操作 elements 的对象的 api
     return api;
 };
-jQuery.prototype = {
+jQuery.fn = jQuery.prototype = {
     constructor: jQuery,
+    jquery: true,
     // 闭包，访问外界变量 elements
     addClass (className) {
         for(let i = 0; i < this.elements.length; i++)this.elements[i].classList.add(className);
@@ -83,6 +99,23 @@ jQuery.prototype = {
             array.push(flag);
         });
         return jQuery(array);
+    },
+    // 10.获取当前节点
+    get (index) {
+        return this.elements[index];
+    },
+    // 11.打印节点
+    print () {
+        console.log(this.elements);
+    },
+    appendTo (node) {
+        if (node instanceof Element) this.each((el)=>node.appendChild(el));
+        else if (node.jquery === true) this.each((el)=>node.get(0).appendChild(el));
+    },
+    append (children) {
+        if (children instanceof Element) this.get(0).appendChild(children);
+        else if (children instanceof HTMLCollection) for(let i = 0; i < children.length; i++)this.get(0).appendChild(children[i]);
+        else if (children.jquery === true) children.each((node)=>this.get(0).appendChild(node));
     }
 };
 
