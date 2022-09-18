@@ -116,7 +116,7 @@ jQuery.fn = jQuery.prototype = {
         })
         return jQuery(array)
     },
-    // 10.获取当前节点
+    // 10.获取指定下标节点数组
     get(index) {
         return this.elements[index];
     },
@@ -124,6 +124,7 @@ jQuery.fn = jQuery.prototype = {
     print() {
         console.log(this.elements)
     },
+    // 将节点插入到node中
     appendTo(node) {
         if (node instanceof Element) {
             this.each(el => node.appendChild(el));
@@ -131,6 +132,7 @@ jQuery.fn = jQuery.prototype = {
             this.each(el => node.get(0).appendChild(el));
         }
     },
+    // 添加节点到第一个选择器内
     append(children) {
         if (children instanceof Element) {
             this.get(0).appendChild(children);

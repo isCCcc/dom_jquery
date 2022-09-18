@@ -19,5 +19,7 @@ const bro = $("#test4").siblings().addClass("bro");
 const pre = $("#test5").prev().addClass("pre");
 // 9.获取下一个节点
 const next = $("#test5").next().addClass("next");
+const insert = $("<p>hi,this is the new content</p>");
+$("#test6").append(insert);
 
 //# sourceMappingURL=index.de158e3a.js.map
