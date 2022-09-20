@@ -28,5 +28,16 @@ console.log(remove);
 // 清空节点的所有子元素
 const empty = $("#test8").empty();
 console.log(remove);
+// 读取文本内容
+const rt = $("#test9").text();
+// 写文本内容
+const wt = $("#test9").text("new");
+console.log(wt);
+// 事件监听
+let fn = ()=>{
+    console.log("事件被监听");
+};
+$("#test10").on("click", fn);
+$("#test10").off("click", fn);
 
 //# sourceMappingURL=index.de158e3a.js.map

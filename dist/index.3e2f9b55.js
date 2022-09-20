@@ -134,14 +134,58 @@ jQuery.fn = jQuery.prototype = {
         return array;
     },
     // 读写文本内容
+    text (string) {
+        // 写操作：dom.text(div,'newTextContent')
+        if (arguments.length === 1) {
+            if ("innerText" in this.elements[0]) this.elements[0].innerText = string // 兼容ie
+            ;
+            else this.elements[0].textContent = string;
+        } else if (arguments.length === 0) {
+            if ("innerText" in this.elements[0]) return this.elements[0].innerText;
+            else return this.elements[0].textContent;
+        }
+        return this.elements;
+    },
     // 读写 HTML 内容
+    html (string) {
+        if (arguments.length === 1) this.elements[0].innerHTML = string;
+        else if (arguments.length === 0) return this.elements[0].innerHTML;
+        return this.elements;
+    },
     // 读写属性
+    attr (name, value) {
+        if (arguments.length === 2) this.elements[0].setAttribute(name, value);
+        else if (arguments.length === 1) return this.elements[0].getAttribute(name);
+        return this.elements;
+    },
     // 读写 style 
+    style (name, value) {
+        if (arguments.length === 2) // .style('font-size', '24px');
+        this.elements[0].style[name] = value;
+        else if (arguments.length === 1) {
+            if (typeof name === "string") // .style('color')
+            return this.elements[0].style[name];
+            else if (name instanceof Object) // .style({ color: 'red', border: '1px solid pink' })
+            for(let key in name)this.elements[0].style[key] = name[key];
+        }
+        return this.elements;
+    },
     // 添加类名
     addClass (className) {
         for(let i = 0; i < this.elements.length; i++)this.elements[i].classList.add(className);
         // 链式操作，返回对象本身
         return this;
+    },
+    // $().on('click','li',fn)
+    // 绑定事件
+    on (eventName, fn) {
+        this.elements[0].addEventListener(eventName, fn);
+        return this.elements;
+    },
+    // 移除事件
+    off (eventName, fn) {
+        this.elements[0].removeEventListener(eventName, fn);
+        return this.elements;
     }
 };
 
