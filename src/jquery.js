@@ -1,6 +1,6 @@
 window.$ = window.jQuery = function (selector) {
     let elements
-    if (typeof selector === 'string') {  // 重构
+    if (typeof selector === 'string') {    // 设计模式 -- 重构
         if (selector[0] === "<") {
             // 创建div
             elements = [createElement(selector)]
@@ -9,7 +9,7 @@ window.$ = window.jQuery = function (selector) {
             elements = document.querySelectorAll(selector)
         }
     } else if (selector instanceof Array) {
-        elements = selector
+        elements = selector  // 闭包，访问外界变量 elements
     }
 
     // 创建节点
@@ -31,20 +31,13 @@ window.$ = window.jQuery = function (selector) {
     // api.oldApi = selectorOrArrayOrTemplate.oldApi
 
     // 返回一个可以操作 elements 的对象的 api
-    return api
+    return api        // 设计模式 -- 链式操作
 }
 
 jQuery.fn = jQuery.prototype = {
     constructor: jQuery,
     jquery: true,
-    // 闭包，访问外界变量 elements
-    addClass(className) {
-        for (let i = 0; i < this.elements.length; i++) {
-            this.elements[i].classList.add(className)
-        }
-        // 链式操作，返回对象本身
-        return this
-    },
+
     // 查找 #xxx 里的 #yyy 元素
     find(selector) {
         let array = []
@@ -124,6 +117,8 @@ jQuery.fn = jQuery.prototype = {
     print() {
         console.log(this.elements)
     },
+
+
     // 将节点插入到node中
     appendTo(node) {
         if (node instanceof Element) {
@@ -144,4 +139,41 @@ jQuery.fn = jQuery.prototype = {
             children.each(node => this.get(0).appendChild(node));
         }
     },
+
+    // 删除被选元素及子元素
+    remove() {
+        let array = []
+        for (let i = 0; i < this.elements.length; i++) {
+            array.push(this.elements[i].parentNode.removeChild(this.elements[i]))
+        }
+        return array
+    },
+    // 清空元素中的子元素
+    empty() {
+        const array = [];
+        for (let i = 0; i < this.elements.length; i++) {
+            let x = this.elements[i].firstChild
+            while (x) {
+                array.push(this.elements[i].removeChild(this.elements[i].firstChild))
+                x = this.elements[i].firstChild
+            }
+        }
+        return array
+    },
+
+    // 读写文本内容
+    // 读写 HTML 内容
+    // 读写属性
+    // 读写 style 
+    // 添加类名
+    addClass(className) {
+        for (let i = 0; i < this.elements.length; i++) {
+            this.elements[i].classList.add(className)
+        }
+        // 链式操作，返回对象本身
+        return this
+    },
+    // 绑定事件
+    // 移除事件
+
 }

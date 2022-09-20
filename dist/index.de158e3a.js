@@ -22,5 +22,11 @@ const next = $("#test5").next().addClass("next");
 // 10.插入节点
 const insert = $("<p>hi,this is the new content</p>");
 $("#test6").append(insert);
+// 删除节点
+const remove = $("#test7").remove();
+console.log(remove);
+// 清空节点的所有子元素
+const empty = $("#test8").empty();
+console.log(remove);
 
 //# sourceMappingURL=index.de158e3a.js.map
